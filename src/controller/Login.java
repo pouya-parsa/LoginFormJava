@@ -1,3 +1,8 @@
+package controller;
+
+import lib.Mysql;
+import model.loginModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -46,7 +51,7 @@ public class Login extends JFrame implements ActionListener {
 
 
         loginButton = new JButton();
-        loginButton.setText("Login");
+        loginButton.setText("controller.Login");
         loginButton.setBounds(200, 150, 80, 30);
         loginButton.addActionListener(this);
 
@@ -88,16 +93,18 @@ public class Login extends JFrame implements ActionListener {
         String password = this.password.getText();
 
 
-        MysqlCon mysqlCon = null;
+        Mysql mysqlCon = null;
 
         JButton button = (JButton) e.getSource();
 
-        if(button.getText().equals("Login")) {
+        if(button.getText().equals("controller.Login")) {
 
 
             try {
-                mysqlCon = new MysqlCon();
-                HashMap<String, String> user = mysqlCon.canLoginWith(username, password);
+
+//                loginModel login = new loginModel();
+
+                HashMap<String, String> user = loginModel.canLoginWith(username, password);
 
                 System.out.println(username + " & "+ password + " : " + user.get("status"));
 
@@ -112,19 +119,14 @@ public class Login extends JFrame implements ActionListener {
                 }
 
 
-            } catch (ClassNotFoundException ex) {
-                ex.printStackTrace();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
         } else {
             try {
-                mysqlCon = new MysqlCon();
-                mysqlCon.signUpWith(username, password);
+                loginModel.signUpWith(username, password);
                 loginButton.doClick();
 
-            } catch (ClassNotFoundException ex) {
-                ex.printStackTrace();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
