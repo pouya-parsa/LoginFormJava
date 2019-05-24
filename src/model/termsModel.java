@@ -29,4 +29,11 @@ public class termsModel extends Mysql {
 
         return Terms;
     }
+
+    public static int getId(String title) throws SQLException {
+        Statement stm = connection.createStatement();
+        ResultSet rs = stm.executeQuery("SELECT  * FROM " + TABLE_NAME  + " WHERE term_title='"+ title +"'");
+        rs.first();
+        return rs.getInt("id");
+    }
 }
