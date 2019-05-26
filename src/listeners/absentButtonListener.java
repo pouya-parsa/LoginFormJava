@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class absentButtonListener implements ActionListener {
 
-    String term = "";
+    String term;
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -18,6 +18,7 @@ public class absentButtonListener implements ActionListener {
         System.out.print("absent button is clicked : " + this.term + " with id ");
         try {
             System.out.println(termsModel.getId(this.term));
+            sessionAdapter.setCurrentTerm(this.term);
             sessionAdapter.getSessions(
                     termsModel.getId(this.term));
 
