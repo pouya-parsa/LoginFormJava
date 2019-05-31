@@ -1,6 +1,7 @@
 package listeners;
 
 import components.sessionAdapter;
+import components.termsAdapter;
 import model.termsModel;
 import view.SessionsList;
 
@@ -18,9 +19,8 @@ public class absentButtonListener implements ActionListener {
         System.out.print("absent button is clicked : " + this.term + " with id ");
         try {
             System.out.println(termsModel.getId(this.term));
-            sessionAdapter.setCurrentTerm(this.term);
             sessionAdapter.getSessions(
-                    termsModel.getId(this.term));
+                    termsAdapter.getCurrentTerm());
 
         } catch (SQLException ex) {
             ex.printStackTrace();

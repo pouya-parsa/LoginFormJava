@@ -2,16 +2,20 @@ package view;
 
 import components.sessionAdapter;
 import components.studentAdapter;
+import components.termsAdapter;
 import dataModels.Session;
 import dataModels.Student;
 import listeners.absentButtonListener;
 import listeners.projectButtonListener;
+import model.sessionsModel;
 import model.studentModel;
 import model.termsModel;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -38,8 +42,6 @@ public class SessionsList {
         panel = new JPanel();
         list = new JList();
         status = new JTextArea();
-        status.setRows(20);
-        status.setColumns(20);
 
         list.setModel(new AbstractListModel() {
 
@@ -67,6 +69,14 @@ public class SessionsList {
             }
         });
 
+        list.setPreferredSize(new Dimension(200, 400));
+        list.setBorder(new EmptyBorder(50, 0, 100, 0));
+        list.setFixedCellHeight(40);
+        list.setFixedCellWidth(100);
+        list.setSelectionBackground(new Color(38, 139, 69));
+        list.setSelectionForeground(Color.white);
+
+
         studentsList = new JList();
 
 
@@ -84,10 +94,11 @@ public class SessionsList {
     private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) throws SQLException {
         //set text on left here
         this.sesionSelected = (String) list.getSelectedValue();
+        sessionAdapter.setCurrentSession(sessionsModel.getId(this.sesionSelected));
         System.out.println("session " + this.sesionSelected);
 
         ArrayList<Student> students = studentModel.getStudents(
-                termsModel.getId(sessionAdapter.getCurrentTerm())
+                termsAdapter.getCurrentTerm()
         );
 
         System.out.println(students.size());

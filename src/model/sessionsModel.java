@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class sessionsModel  extends Mysql {
+    private final static String TABLE_NAME = "sessions";
+
     public static ArrayList<Session> getSession(int term_id) throws SQLException {
         Statement stm = connection.createStatement();
 
@@ -22,5 +24,12 @@ public class sessionsModel  extends Mysql {
         } while (rs.next());
 
         return sessions;
+    }
+
+    public static int getId(String title) throws SQLException {
+        Statement stm = connection.createStatement();
+        ResultSet rs = stm.executeQuery("SELECT  * FROM " + TABLE_NAME + " WHERE title='"+ title +"'");
+        rs.first();
+        return rs.getInt("id");
     }
 }

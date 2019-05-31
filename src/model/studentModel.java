@@ -18,7 +18,7 @@ public class studentModel extends Mysql {
         ArrayList<Student> students = new ArrayList();
 
         do{
-            students.add(new Student(rs.getString("name")));
+            students.add(new Student(rs.getInt("id"), rs.getString("name")));
         } while(rs.next());
 
         return students;

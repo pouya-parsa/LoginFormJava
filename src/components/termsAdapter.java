@@ -9,9 +9,18 @@ import java.util.ArrayList;
 
 public class termsAdapter {
 
-   public static ArrayList<Term> getTerms() throws SQLException {
+    private static int currentTerm;
+
+   public static ArrayList<Term>     getTerms() throws SQLException {
         TermsList.show(termsModel.getTerm());
         return null;
     }
 
+    public static int getCurrentTerm() {
+        return currentTerm;
+    }
+
+    public static void setCurrentTerm(int currentTerm) {
+        termsAdapter.currentTerm = currentTerm;
+    }
 }

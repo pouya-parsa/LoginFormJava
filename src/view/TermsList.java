@@ -1,12 +1,18 @@
 package view;
 
+import com.sun.prism.shader.FillCircle_LinearGradient_REFLECT_AlphaTest_Loader;
+import components.termsAdapter;
 import dataModels.Term;
 import listeners.absentButtonListener;
 import listeners.projectButtonListener;
+import model.termsModel;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TermsList {
@@ -53,10 +59,21 @@ public class TermsList {
 
             @Override
             public void valueChanged(ListSelectionEvent evt) {
-                jList1ValueChanged(evt);
+                try {
+                    jList1ValueChanged(evt);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
+
+        list.setPreferredSize(new Dimension(200, 800));
+        list.setBorder(new EmptyBorder(50, 0, 100, 0));
+        list.setFixedCellHeight(40);
+        list.setFixedCellWidth(100);
+        list.setSelectionBackground(new Color(38, 139, 69));
+        list.setSelectionForeground(Color.white);
 
 
         projects_btn = new JButton("projects");
@@ -75,13 +92,16 @@ public class TermsList {
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(panel);
-        frame.pack();
+        frame.setSize(600, 800);
         frame.setVisible(true);
     }
 
-    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {
+    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) throws SQLException {
         //set text on left here
         this.termSelect = (String) list.getSelectedValue();
+
+        termsAdapter.setCurrentTerm(termsModel.getId(this.termSelect));
+
         projectsBtnListener.setTerm(this.termSelect);
         absentBtnListener.setTerm(this.termSelect);
 

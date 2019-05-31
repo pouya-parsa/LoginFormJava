@@ -8,17 +8,17 @@ import java.sql.SQLException;
 public class sessionAdapter {
 
 
-    private static String CurrentTerm;
+    private static int CurrentSession;
 
     public static void getSessions(int term_id) throws SQLException {
         SessionsList.show(sessionsModel.getSession(term_id));
     }
 
-    public static String getCurrentTerm() {
-        return CurrentTerm;
+    public static int getCurrentSession() {
+        return CurrentSession;
     }
 
-    public static void setCurrentTerm(String currentTerm) {
-        CurrentTerm = currentTerm;
+    public static void setCurrentSession(int currentSession) {
+        CurrentSession = currentSession;
     }
 }

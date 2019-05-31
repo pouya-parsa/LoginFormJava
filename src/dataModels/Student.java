@@ -1,10 +1,12 @@
 package dataModels;
 
 public class Student {
+    int id;
     String name;
     boolean IsChecked = false;
 
-    public Student(String name) {
+    public Student(int id, String name) {
+        this.id = id;
         this.name = name;
     }
 
@@ -22,6 +24,14 @@ public class Student {
 
     public void setChecked(boolean checked) {
         IsChecked = checked;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
 
